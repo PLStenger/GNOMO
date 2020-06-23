@@ -26,18 +26,17 @@ You are lucky and can go on. The scripts will subset this file by grepping `gene
 2Kb is used here like in Wang et al. 2014 (doi:10.1186/1471-2164-15-1119)<sup>7</sup>. When considering double-stranded DNA, upstream is toward the 5' end of the coding strand for the gene in question and downstream is toward the 3' end. Due to the anti-parallel nature of DNA, this means the 3' end of the template strand is upstream of the gene and the 5' end is downstream. GNOMO take this fact in account, so you must have the transcription direction information in your GFF/GFF3 file. Example:
 
 
+```
 If "+" (positive or 5 '→ 3')
-
 Upstream = 5'UTR = 5' end
-
 Downstream = 3'UTR = 3' end
 
 If "-" (negative or 3 '→ 5')
 Upstream = 3'UTR = 3' end
 Downstream = 5'UTR = 5' end
+```
 
-
-So, how it's works ? First, all genes with ***positive*** strand and with ***negative*** strand are split into two different files. For ***positive*** strand files, in *upstream*, 2000 pb (=2kb) is substracted to the start of each **Gene body** and will be used as a strat for the *upstream* part; and the start of each **Gene body** will be used as stop for *upstream* part. For ***negative*** strand files, the stop of each **Gene body** will be used as start for *upstream* part, and this value will be store and added by +2000bp in order to obtainning the stop value for the *upstream* part in the negative strand. This is the exactly opposite for *downstream* parts : For ***negative*** strand files, in *downstream*, 2000 pb (=2kb) is substracted to the start of each **Gene body** and will be used as a strat for the *downstream* part; and the start of each **Gene body** will be used as stop for *downstream* part. For ***positive*** strand files, the stop of each **Gene body** will be used as start for *downstream* part, and this value will be store and added by +2000bp in order to obtainning the stop value for the *downstream* part in the positive strand.
+- So, how it's works for **Upstream** and **Downstream**? First, all genes with ***positive*** strand and with ***negative*** strand are split into two different files. For ***positive*** strand files, in *upstream*, 2000 pb (=2kb) is substracted to the start of each **Gene body** and will be used as a strat for the *upstream* part; and the start of each **Gene body** will be used as stop for *upstream* part. For ***negative*** strand files, the stop of each **Gene body** will be used as start for *upstream* part, and this value will be store and added by +2000bp in order to obtainning the stop value for the *upstream* part in the negative strand. This is the exactly opposite for *downstream* parts : For ***negative*** strand files, in *downstream*, 2000 pb (=2kb) is substracted to the start of each **Gene body** and will be used as a strat for the *downstream* part; and the start of each **Gene body** will be used as stop for *downstream* part. For ***positive*** strand files, the stop of each **Gene body** will be used as start for *downstream* part, and this value will be store and added by +2000bp in order to obtainning the stop value for the *downstream* part in the positive strand. Another important thing here is, a CpG can be on **upstream** on a gene 1, but a second gene (2) could be really very close to the gene 1 and also be considered both in **upstream** AND **Gene body**. So, GNOMO will deleted the **upstream** value to keep only the **Gene body** value for this CpG.
 
 <ins>Footnotes</ins>
 
