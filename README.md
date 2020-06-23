@@ -38,23 +38,6 @@ Downstream = 5'UTR = 5' end
 
 - So, how it's works for **Upstream** and **Downstream**? First, all genes with ***positive*** strand and with ***negative*** strand are split into two different files. For ***positive*** strand files, in *upstream*, 2000 pb (=2kb) is substracted to the start of each **Gene body** and will be used as a strat for the *upstream* part; and the start of each **Gene body** will be used as stop for *upstream* part. For ***negative*** strand files, the stop of each **Gene body** will be used as start for *upstream* part, and this value will be store and added by +2000bp in order to obtainning the stop value for the *upstream* part in the negative strand. This is the exactly opposite for *downstream* parts : For ***negative*** strand files, in *downstream*, 2000 pb (=2kb) is substracted to the start of each **Gene body** and will be used as a strat for the *downstream* part; and the start of each **Gene body** will be used as stop for *downstream* part. For ***positive*** strand files, the stop of each **Gene body** will be used as start for *downstream* part, and this value will be store and added by +2000bp in order to obtainning the stop value for the *downstream* part in the positive strand. Another important thing here is, a CpG can be on **upstream** on a gene 1, but a second gene (2) could be really very close to the gene 1 and also be considered both in **upstream** AND **Gene body**. So, GNOMO will deleted the **upstream** value to keep only the **Gene body** value for this CpG.
 
-<ins>Footnotes</ins>
-
-<sup>1</sup> https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html
-
-<sup>2</sup> https://bedtools.readthedocs.io/en/latest/index.html
-
-<sup>3</sup> https://www.bioinformatics.babraham.ac.uk/projects/bismark/Bismark_User_Guide.pdf
-
-<sup>4</sup> https://bioconductor.org/packages/devel/bioc/vignettes/methylKit/inst/doc/methylKit.html
-
-<sup>5</sup> TSS - Transcription Start Site
-
-<sup>6</sup> TES - Transcription End Site
-
-<sup>7</sup> Wang et al. 2014 : Genome-wide and single-base resolution DNA methylomes of the Pacific oyster Crassostrea gigas provide insight into the evolution of invertebrate CpG methylation. BMC Genomics 2014 15:1119.doi:10.1186/1471-2164-15-1119
-
-
 ## How to run ? What's it's doing ?
 
 1. If you have only exon values in your GFF/GFF3 file, please run before the `00_concatenate_exons_into_genes.sh` as explained before. Then, merge your new file with your old file in order to kept **Exon** and **Gene body** informations. Then, go to step 2.
@@ -78,3 +61,20 @@ Downstream = 5'UTR = 5' end
 6. `wc -l *_gene_upstream_02.gff` and `wc -l *_gene_downstream_02.gff` will give you the total number of CpG in **up** and **downstream**.
 7. So, for obtainning the real number of **up** and **downstream** CpG, please substract the number of CpG in **up** and **downstream** (step 6) by the number of duplicates (step 5) for each of your WGBS-Seq CpG count files.
  
+
+
+## Footnotes
+
+<sup>1</sup> https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html
+
+<sup>2</sup> https://bedtools.readthedocs.io/en/latest/index.html
+
+<sup>3</sup> https://www.bioinformatics.babraham.ac.uk/projects/bismark/Bismark_User_Guide.pdf
+
+<sup>4</sup> https://bioconductor.org/packages/devel/bioc/vignettes/methylKit/inst/doc/methylKit.html
+
+<sup>5</sup> TSS - Transcription Start Site
+
+<sup>6</sup> TES - Transcription End Site
+
+<sup>7</sup> Wang et al. 2014 : Genome-wide and single-base resolution DNA methylomes of the Pacific oyster Crassostrea gigas provide insight into the evolution of invertebrate CpG methylation. BMC Genomics 2014 15:1119.doi:10.1186/1471-2164-15-1119
