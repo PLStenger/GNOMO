@@ -55,3 +55,26 @@ Downstream = 5'UTR = 5' end
 <sup>7</sup> Wang et al. 2014 : Genome-wide and single-base resolution DNA methylomes of the Pacific oyster Crassostrea gigas provide insight into the evolution of invertebrate CpG methylation. BMC Genomics 2014 15:1119.doi:10.1186/1471-2164-15-1119
 
 
+## How to run ? What's it's doing ?
+
+1. If you have only exon values in your GFF/GFF3 file, please run before the `00_concatenate_exons_into_genes.sh` as explained before. Then, merge your new file with your old file in order to kept **Exon** and **Gene body** informations. Then, go to step 2.
+2. If you have a GFF/GFF3 file like in the example above, please run these different step in this order:
+
+- `01_layout.sh`. You need to change in the header or this script the path of your working directory (in DIRECTORY=) and the name of your GFF/GFF3 file (in FILE=). Run the script. It will created for subsetted files: `${FILE##*/}_gene_upstream.gff3`, `${FILE##*/}_gene_downstream.gff3`, `${FILE##*/}_gene.gff3` and `${FILE##*/}_exon.gff3`. In this four files, there is the limit (start and stop) of each category.
+
+- `02_intersect_WGBS_files.sh`. You need to change in the header or this script.  the path of your working directory (in DATADIRECTORY) and the output direcectory (DATAOUTPUT), precise the location of your `Bedtools`<sup>2</sup> (in BEDTOOLS_ENV=), and wrote the similar name pattern for your WGBS-Seq CpG count file in WGBS_FILE= (for example, if all your CpG count files are finish by `*_cpg_count.txt`, wrote this: `WGBS_FILE=_cpg_count.txt`). Run the script. For each WGBS-Seq CpG count file you will obtain four files, for: **Gene body** CpG, **Exon** CpG, **Upstream** CpG and **Downstream** CpG.
+
+- `03_clean_steps.sh`. You also need to change in the header or this script. This script will clean the files, but more important, it attributes and unique name of each CpG, and this will serve when comparing **Gene body** CpG files with **Upstream** and **Downstream** CpG files for deleted duplicates.
+
+- `04_vlookup.shh`. You also need to change in the header or this script. This script will search duplicates CpG by comparing **Gene body** CpG files with **Upstream** and **Downstream** CpG files. All duplicates will be put in `*_gene_MATCH_w_upstream.txt` and `*_gene_MATCH_w_downstream.txt` files. So, into this files, there are CpG position that are both in **Gene body** region for one gene and in **Upstream** or **Downstream** region for another gene with is closer to the first one. 
+
+- The last step for obtainning the number of CpG in each genomic part is only command line:
+
+1. `wc -l ${WGBS_FILE##*/}` (`${WGBS_FILE##*/}` correspond to your similar name pattern for your WGBS-Seq CpG count file). This will give you the total number of your CpG in all of your WGBS-Seq CpG count files.
+2. `wc -l *_gene_02.gff`. Will give you the number of CpG only in the gene body (so, exons + introns) for all of your WGBS-Seq CpG count files.
+3. `wc -l *_exon_02.gff`. Will give you the number of CpG only in exons for all of your WGBS-Seq CpG count files.
+4. For obtainning the number of CpG only in **introns**, please subtract the number of CpG only in the gene body (step 2) with the number of CpG only in exons (step 3) for each of your WGBS-Seq CpG count files.
+5. `wc -l *combined_gene_MATCH_w_upstream.txt` and `wc -l *combined_gene_MATCH_w_downstream.txt` will give you respectively the number of duplicates CpG.
+6. `wc -l *_gene_upstream_02.gff` and `wc -l *_gene_downstream_02.gff` will give you the total number of CpG in **up** and **downstream**.
+7. So, for obtainning the real number of **up** and **downstream** CpG, please substract the number of CpG in **up** and **downstream** (step 6) by the number of duplicates (step 5) for each of your WGBS-Seq CpG count files.
+ 
