@@ -1,5 +1,5 @@
 # GNOMO
-GNOMO is a Gencode for NOn Model Organism
+***GNOMO is a Gencode for NOn Model Organism***
 
 GNOMO allow to count the number of CpG from WGBS-Seq data into the different genomic part, as in :
 
