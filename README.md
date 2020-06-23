@@ -16,6 +16,8 @@ Upstream = 3'UTR = 3' end
 Downstream = 5'UTR = 5' end
 ```
 
+- **Gene body**. Normaly you have already the gene start and stop information of each genes. However some GFF/GFF3 file from non-model animals can have only exons start and stop information, and the gene start and stop information of each genes is not concatenated.
+
 <ins>Footnotes</ins>
 
 <sup>1</sup> TSS - Transcription Start Site
