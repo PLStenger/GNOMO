@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-$DIRECTORY= #Set your working directory
-$FILE= #your GFF or your GFF3 file
+DIRECTORY= #Set your working directory
+FILE= #your GFF or your GFF3 file
 
 
 cd $DIRECTORY
