@@ -7,7 +7,7 @@ GNOMO allow to count the number of CpG from WGBS-Seq data into the different gen
 2Kb is used here like in Wang et al. 2014 (doi:10.1186/1471-2164-15-1119)<sup>3</sup>
 
 
-<u> Footnotes </u>
+<ins>Footnotes</ins>
 
 <sup>1</sup> TSS - Transcription Start Site
 
