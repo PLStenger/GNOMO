@@ -45,6 +45,23 @@ Downstream = 5'UTR = 5' end
 
 - `01_layout.sh`. You need to change in the header or this script the path of your working directory (in DIRECTORY=) and the name of your GFF/GFF3 file (in FILE=). Run the script. It will created for subsetted files: `${FILE##*/}_gene_upstream.gff3`, `${FILE##*/}_gene_downstream.gff3`, `${FILE##*/}_gene.gff3` and `${FILE##*/}_exon.gff3`. In this four files, there is the limit (start and stop) of each category.
 
+If your GFF is more simple and look like this : 
+
+```
+NW_015441057.1	Gnomon	gene	420	3081	.	+	.
+NW_015441057.1	Gnomon	exon	420	518	.	+	.
+NW_015441057.1	Gnomon	exon	1484	1598	.	+	.
+NW_015441057.1	Gnomon	exon	1698	1750	.	+	.
+NW_015441057.1	Gnomon	exon	2850	2959	.	+	.
+NW_015441057.1	Gnomon	exon	3043	3081	.	+	.
+NW_015441057.1	Gnomon	CDS	431	518	.	+	0
+NW_015441057.1	Gnomon	CDS	1484	1598	.	+	2
+NW_015441057.1	Gnomon	CDS	1698	1750	.	+	1
+NW_015441057.1	Gnomon	CDS	2850	2959	.	+	2
+```
+
+run the script `01_layout_02.sh` instead of the script `01_layout.sh`.
+
 - `02_intersect_WGBS_files.sh`. You need to change in the header or this script.  the path of your working directory (in DATADIRECTORY) and the output direcectory (DATAOUTPUT), precise the location of your `Bedtools`<sup>2</sup> (in BEDTOOLS_ENV=), and wrote the similar name pattern for your WGBS-Seq CpG count file in WGBS_FILE= (for example, if all your CpG count files are finish by `*_cpg_count.txt`, wrote this: `WGBS_FILE=_cpg_count.txt`). Run the script. For each WGBS-Seq CpG count file you will obtain four files, for: **Gene body** CpG, **Exon** CpG, **Upstream** CpG and **Downstream** CpG.
 
 - `03_clean_steps.sh`. You also need to change in the header or this script. This script will clean the files, but more important, it attributes and unique name of each CpG, and this will serve when comparing **Gene body** CpG files with **Upstream** and **Downstream** CpG files for deleted duplicates.
